@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -39,6 +40,7 @@ import com.insurance.uhg.userservice.model.User;
 import com.insurance.uhg.userservice.repo.RoleRepo;
 import com.insurance.uhg.userservice.repo.UserRepo;
 import com.insurance.uhg.userservice.service.AuthService;
+import com.insurance.uhg.userservice.service.EmailService;
 //import com.insurance.uhg.userservice.service.UserDetailImp;
 import com.insurance.uhg.userservice.service.UserDetailsServiceImp;
 import com.insurance.uhg.userservice.util.JWTUtil;
@@ -65,6 +67,8 @@ public class AuthenticationController {
 	private UserRepo userrepo;
 	@Autowired
 	private AuthService service;
+	@Autowired
+	private EmailService emailService;
 
 	
   
@@ -95,7 +99,8 @@ public class AuthenticationController {
 	    return new AuthenticationResponse(jwt);
 	   
 	  }
-	
+	 
+
 	 
 	  @PostMapping("/signup")
 	  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupDTO signupdto) {
@@ -141,15 +146,17 @@ public class AuthenticationController {
 	    user.setRoles(roles);
 	  
 	    service.saveUser(user);
+	    emailService.sendRegistrationSuccessEmail(signupdto.getEmail(),signupdto.getFirstname());
 
 	    return ResponseEntity.ok("User registered successfully!");
 	  }
 
 	@GetMapping("/finduser/{email}")
 	public List<User> findByUsername(@PathVariable String email)
-	{
+	{	
 		return service.findUser(email);
 	}
+	
 	
 	@GetMapping("/validate")
 	public String validateToken(@RequestParam("token") String token) {
@@ -170,7 +177,6 @@ public class AuthenticationController {
 		service.saveUser(user);
 //		emailService.sendOTPMail(user.getEmail(),user.getFirstName(), user.getOtp());
 	}
-	
 	
 	
 	

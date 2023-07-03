@@ -25,21 +25,4 @@ spring:
             - Path=/policy/**
           filters:
             - AuthenticationFilter
-        - id: order-service
-          uri: lb://ORDERSERVICE
-          predicates:
-            - Path=/order/**
-          filters:
-            - AuthenticationFilter
-        - id: cart-service
-          uri: lb://CART-SERVICE
-          predicates:
-            - Path=/cart/**
-          filters:
-            - AuthenticationFilter
-        - id: wishlist-service
-          uri: lb://WISHLIST-SERVICE
-          predicates: 
-            - Path=/wishlist/**
-           
-    
+        

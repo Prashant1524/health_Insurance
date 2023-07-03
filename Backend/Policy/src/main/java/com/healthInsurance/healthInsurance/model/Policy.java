@@ -1,22 +1,16 @@
 package com.healthInsurance.healthInsurance.model;
 
-	import java.util.Set;
-
-import jakarta.persistence.CascadeType;
-
-//import java.util.Date;
+	//import java.util.Date;
 	//
 	//import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
 @Entity
 @Table(name="Policy")
-public class Policy 
+public class Policy
 {
 	@Id
 	private long policy_id;
@@ -26,21 +20,12 @@ public class Policy
 	private long policy_start_amount;
 	private String policy_type;
 	private String policy_for;
-	private String policy_document_url;
-	
-	//Onetomany mapping
-
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fk_file_id")
-	private File f;
-	
-	//private byte[] policy_doc;
 	public Policy() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Policy(long policy_id, String policy_name, String policy_image_url, String policy_cover_amount,
-			long policy_start_amount, String policy_type, String policy_for,String policy_document_url) {
+			long policy_start_amount, String policy_type, String policy_for) {
 		super();
 		this.policy_id = policy_id;
 		this.policy_name = policy_name;
@@ -49,18 +34,7 @@ public class Policy
 		this.policy_start_amount = policy_start_amount;
 		this.policy_type = policy_type;
 		this.policy_for = policy_for;
-		this.policy_document_url=policy_document_url;
 	}
-//	public byte[] getPolicy_doc() {
-//		return policy_doc;
-//	}
-//	public void setPolicy_doc(byte[] policy_doc) {
-//		this.policy_doc = policy_doc;
-//	}
-//	public Policy(byte[] policy_doc) {
-//		super();
-//		this.policy_doc = policy_doc;
-//	}
 	public Policy(String policy_name, String policy_image_url, String policy_cover_amount,
 			long policy_start_amount, String policy_type, String policy_for) {
 		super();
@@ -70,12 +44,6 @@ public class Policy
 		this.policy_start_amount = policy_start_amount;
 		this.policy_type = policy_type;
 		this.policy_for = policy_for;
-	}
-	public String getPolicy_document_url() {
-		return policy_document_url;
-	}
-	public void setPolicy_document_url(String policy_document_url) {
-		this.policy_document_url = policy_document_url;
 	}
 	public long getPolicy_id() {
 		return policy_id;

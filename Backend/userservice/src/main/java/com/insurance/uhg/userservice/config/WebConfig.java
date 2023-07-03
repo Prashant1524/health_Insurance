@@ -31,7 +31,7 @@ public class WebConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		 http.csrf().disable()
          .authorizeHttpRequests()
-         .requestMatchers("/users/signin", "/users/signup", "/users/finduser/{email}", "/users/updateuser", "/users/getotp").permitAll()
+         .requestMatchers("/users/signin", "/users/signup", "/users/finduser/{email}", "/users/finduser/{id}","/users/updateuser", "/users/getotp").permitAll()
          .and()
          .authorizeHttpRequests().requestMatchers("/**")
          .authenticated().and()

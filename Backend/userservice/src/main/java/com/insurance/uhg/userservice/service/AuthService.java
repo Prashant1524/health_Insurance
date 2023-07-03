@@ -11,5 +11,6 @@ public interface AuthService {
 	public User saveUser(User user);
 	public void updateUser(User user,long id);
 	public void otpVerify(User user, long id);
+	public User findUserRole(Long id);
 	
 }

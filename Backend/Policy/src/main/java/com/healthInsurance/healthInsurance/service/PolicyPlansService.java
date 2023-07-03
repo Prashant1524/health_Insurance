@@ -1,4 +1,4 @@
-	package com.healthInsurance.healthInsurance.service;
+package com.healthInsurance.healthInsurance.service;
 
 import java.util.List;
 

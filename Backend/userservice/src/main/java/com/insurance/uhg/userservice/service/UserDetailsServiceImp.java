@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.insurance.uhg.userservice.model.User;
 import com.insurance.uhg.userservice.repo.UserRepo;
@@ -35,8 +34,6 @@ public class UserDetailsServiceImp implements UserDetailsService{
 		
 		
 	}
-	
-	
 	
 
 	

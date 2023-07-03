@@ -38,6 +38,11 @@ public class AuthServiceImpl implements AuthService{
 		// TODO Auto-generated method stub
 		userRepository.save(user);
 	}
+	@Override
+	public User findUserRole(Long id) {
+		// TODO Auto-generated method stub
+		return userRepository.findUserRole(id);
+	}
 
 	
 

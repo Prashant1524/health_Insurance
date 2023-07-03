@@ -15,8 +15,12 @@ public interface UserRepo extends JpaRepository<User, Long>{
 	  
 	  Boolean existsByEmail(String email);
 	  
-	  @Query(value="Select * from users where email=?1",nativeQuery=true)
+	  @Query(value="Select * from insurance_users where email=?1",nativeQuery=true)
 	  public List<User> findUser(String email);
 	
+	  @Query(value="Select role_id from user_roles where user_id=?1",nativeQuery=true)
+	  public User findUserRole(Long id);
+	  
 	  User findFirstByEmail(String email);
+	  
 }
