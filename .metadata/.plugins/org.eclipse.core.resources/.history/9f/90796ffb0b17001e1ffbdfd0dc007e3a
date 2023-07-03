@@ -1,5 +1,0 @@
-package com.healthInsurance.healthInsurance.message;
-
-public class ResponseMessage {
-
-}

@@ -1,5 +1,0 @@
-package com.uhg.project.ecart.dto;
-
-public class MailResponse {
-
-}

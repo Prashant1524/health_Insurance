@@ -1,5 +1,0 @@
-package com.healthInsurance.healthInsurance.Exception;
-
-public class FileUploadException {
-
-}
