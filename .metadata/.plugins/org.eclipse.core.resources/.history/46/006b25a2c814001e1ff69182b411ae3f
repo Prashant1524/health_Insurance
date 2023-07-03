@@ -1,0 +1,18 @@
+package com.insurance.uhg.userservice.service;
+
+import java.util.List;
+
+import com.uhg.project.ecart.dto.AuthenticationDTO;
+//import com.uhg.product.productserivice.model.Product;
+//import com.uhg.product.productserivice.model.Product;
+import com.uhg.project.ecart.dto.SignupDTO;
+import com.uhg.project.ecart.dto.UserDTO;
+import com.uhg.project.ecart.entity.User;
+
+public interface AuthService {
+	public List<User> findUser(String email);
+	public User saveUser(User user);
+	public void updateUser(User user,long id);
+	public void otpVerify(User user, long id);
+	
+}

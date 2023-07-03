@@ -1,0 +1,5 @@
+package com.healthInsurance.healthInsurance.repo;
+
+public interface FileRepo {
+
+}

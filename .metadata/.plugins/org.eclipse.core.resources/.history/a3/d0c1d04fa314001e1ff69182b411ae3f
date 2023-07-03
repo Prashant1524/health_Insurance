@@ -1,0 +1,5 @@
+package com.insurance.uhg.userservice.dto;
+
+public class MailResponse {
+
+}

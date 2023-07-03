@@ -1,0 +1,104 @@
+package com.insurance.uhg.userservice.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+//import com.uhg.product.productserivice.model.Product;
+//import com.uhg.product.productserivice.model.Product;
+import com.uhg.project.ecart.dto.AuthenticationDTO;
+import com.uhg.project.ecart.dto.AuthenticationResponse;
+import com.uhg.project.ecart.entity.User;
+import com.uhg.project.ecart.exception.UserNotFoundException;
+import com.uhg.project.ecart.jwt.UserDetailsServiceImp;
+import com.uhg.project.ecart.service.AuthService;
+import com.uhg.project.ecart.service.EmailService;
+//import com.uhg.project.ecart.service.AuthService;
+import com.uhg.project.ecart.util.JWTUtil;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+@RestController
+@CrossOrigin(origins="http://localhost:3000")
+@RequestMapping("/users")
+public class AuthenticationController {
+	
+	@Autowired
+	private JWTUtil jwtUtil;
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@Autowired
+	private UserDetailsServiceImp userDetailsService;
+	@Autowired
+	private AuthService authservice;
+	@Autowired
+	private EmailService emailService;
+  
+	
+	public AuthenticationController(AuthenticationManager authenticationManager2,
+			UserDetailsService userDetailsService2, JWTUtil jwtUtil2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@PostMapping("/authenticate")
+	public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationDTO authenticationDTO, HttpServletResponse response) throws BadCredentialsException, DisabledException,UsernameNotFoundException, IOException{
+		Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTO.getEmail(),authenticationDTO.getPassword()));
+		
+		if (auth == null) {
+			throw new UserNotFoundException("Incorrect username or password");
+		}
+			
+	
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTO.getEmail());
+		final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+		return new AuthenticationResponse(jwt);
+	}
+	
+	@GetMapping("/finduser/{email}")
+	public List<User> findUser(@PathVariable String email)
+	{
+		return authservice.findUser(email);
+	}
+	
+	@GetMapping("/validate")
+	public String validateToken(@RequestParam("token") String token) {
+		jwtUtil.validateToken(token);
+		return "Token is valid";
+	}
+	
+	@PutMapping("/updateuser")
+	public void updateProduct(@RequestBody User user)
+	{	
+		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		authservice.saveUser(user);
+	
+	}
+	
+	@PostMapping("/getotp")
+	public void otpVerify(@RequestBody User user){
+		authservice.saveUser(user);
+		emailService.sendOTPMail(user.getEmail(),user.getFirstName(), user.getOtp());
+	}
+	
+	
+	
+}

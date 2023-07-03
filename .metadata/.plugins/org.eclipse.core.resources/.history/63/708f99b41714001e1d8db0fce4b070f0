@@ -1,0 +1,5 @@
+package com.insurance.uhg.userservice.model;
+
+public class Role {
+
+}

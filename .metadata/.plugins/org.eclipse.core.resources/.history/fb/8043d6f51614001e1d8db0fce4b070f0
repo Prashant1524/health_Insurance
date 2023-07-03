@@ -1,0 +1,6 @@
+package com.insurance.uhg.userservice.repo;
+
+
+public class UserRepo extends JpaRepository{
+
+}

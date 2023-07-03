@@ -1,0 +1,20 @@
+package com.insurance.uhg.userservice.repo;
+
+import org.springframework.stereotype.Repository;
+
+import com.insurance.uhg.userservice.model.User;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+@Repository
+public interface UserRepo extends JpaRepository<User, Long>{
+	  Optional<User> findByUsername(String email);
+	  Boolean existsByEmail(String email);
+	  public User saveUser(User user);
+	  public void updateUser(User user,long id);
+	  public void otpVerify(User user, long id);
+
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="D:\Health Insurance\Policy"/>
+			<item value="D:\Health Insurance\userservice"/>
+			<item value="D:\Health Insurance\gateway"/>
+			<item value="D:\Health Insurance\discovery-server"/>
+			<item value="C:\Users\pooja_guttal\Desktop\Health Insurance\gateway"/>
+			<item value="C:\Users\pooja_guttal\Desktop\Health Insurance\discovery-server"/>
+			<item value="C:\Users\pooja_guttal\Desktop\Health Insurance\userservice"/>
+			<item value="C:\Users\pooja_guttal\Desktop\Health Insurance\ecart"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

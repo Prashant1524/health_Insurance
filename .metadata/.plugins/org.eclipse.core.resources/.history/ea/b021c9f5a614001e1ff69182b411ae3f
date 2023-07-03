@@ -1,0 +1,5 @@
+package com.insurance.uhg.userservice.jwt;
+
+public class UserDetailImp {
+
+}
