@@ -39,8 +39,6 @@ public class User {
 
 	  private long phone;
 	  
-	  @NotBlank
-	  @Email
 	  private String email;
 
 	  @NotBlank
@@ -61,10 +59,11 @@ public class User {
 	  }
 
 	  
-	  public User(@NotBlank @Size(max = 20) String firstname, @NotBlank @Size(max = 20) String lastname,
-			@NotBlank @Size(min = 10) long phone, @NotBlank @Size(max = 10) @Email String email,
+	  public User(Long id, @NotBlank @Size(max = 20) String firstname, @NotBlank @Size(max = 20) String lastname,
+			@NotBlank @Size(min = 10) long phone, String email,
 			@NotBlank @Size(max = 120) String password, Integer otp) {
 		super();
+		this.id=id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.phone = phone;

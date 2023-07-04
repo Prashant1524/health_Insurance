@@ -109,14 +109,15 @@ public class AuthenticationController {
 	    }
 
 	    // Create new user's account
-	    User user = new User(signupdto.getFirstname(),
+	    User user = new User(signupdto.getId(),
+	    					 signupdto.getFirstname(),
 	                         signupdto.getLastname(),
 	                         signupdto.getPhone(),
 	                         signupdto.getEmail(),
 	                         encoder.encode(signupdto.getPassword()),
 	                         signupdto.getOtp());
 	    
-	    System.out.println(signupdto.getRoles());
+//	    System.out.println(signupdto.getRoles());
 	    Set<String> strRoles = signupdto.getRoles();
 	    
 	    Set<Role> roles = new HashSet<>();
@@ -151,7 +152,7 @@ public class AuthenticationController {
 	    return ResponseEntity.ok("User registered successfully!");
 	  }
 
-	@GetMapping("/finduser/{email}")
+	@GetMapping("/finduser/{email}")		
 	public List<User> findByUsername(@PathVariable String email)
 	{	
 		return service.findUser(email);

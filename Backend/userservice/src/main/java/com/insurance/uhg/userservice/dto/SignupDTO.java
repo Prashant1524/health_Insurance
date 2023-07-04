@@ -20,7 +20,7 @@ import jakarta.validation.constraints.Size;
 
 
 public class SignupDTO {
-
+	  private Long id;
 	  private String firstname;
 	  private String lastname;
 	  private long phone;
@@ -98,5 +98,13 @@ public class SignupDTO {
 	  public void setRoles(Set<String> roles) {
 	    this.roles = roles;
 	  }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 }
