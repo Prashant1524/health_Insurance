@@ -22,7 +22,50 @@ spring:
         - id: policy-service
           uri: lb://POLICY-SERVICE
           predicates:
-            - Path=/policy/**
+            - Path=/policy/addPolicy
           filters:
             - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/deletePolicy/{id}
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/findByPolicyF or/{policy_for}
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/updatePolicy
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/findById/{id}
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/getAllPolicyPlans
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENTSERVICE
+          predicates:
+            - Path=/announcements/getallannou
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENTSERVICE
+          predicates:
+            - Path=/announcements/fetchAnn
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENTSERVICE
+          predicates:
+            - Path=/announcements/admin/addAnn
+          filters:
+            - AuthenticationFilter
+        
         
