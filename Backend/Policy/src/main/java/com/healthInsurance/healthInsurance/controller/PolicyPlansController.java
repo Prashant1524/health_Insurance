@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,28 +25,64 @@ import com.healthInsurance.healthInsurance.service.PolicyPlansService;
 public class PolicyPlansController {
 	@Autowired
 	private PolicyPlansService pps;
-	@Autowired 
-	private Environment ev;
+	
 	@PostMapping("/addPolicy")
-	public String savePolicyPlans(@RequestBody Policy pp) 
-	{
-		List<Policy> policiesByName = pps.findByPolicyName(pp.getPolicy_name());
-		if(policiesByName!=null && policiesByName.size()>0)
-		{
-			return "Policy already exist";
-		}
-		System.out.println("Policy for "+pp.getPolicy_for());
-		String fpolicy="Family";
-		if(pp.getPolicy_for().equals(fpolicy))
-		{
-			pp.setPolicy_start_amount(799);
-			return pps.savePolicyPlans(pp);
-		}
-		else
-		{
-			return pps.savePolicyPlans(pp);	
-		}	
-	} 
+    public String savePolicyPlans(@RequestBody Policy pp) 
+    {
+        List<Policy> policiesByName = pps.findByPolicyName(pp.getPolicy_name());
+        if(policiesByName!=null && policiesByName.size()>0)
+        {
+            return "Policy already exist";
+        }
+        //System.out.println("Policy for "+pp.getPolicy_for());
+        String fpolicy="Family";
+        String quarterly="Quarterly";
+        String halfYearly="Half Yearly";
+        String yearly="Yearly";
+        //Family
+        if(pp.getPolicy_for().equals(fpolicy))
+        {
+            if(pp.getPolicy_type().equalsIgnoreCase(quarterly))
+            {
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*4);
+                return pps.savePolicyPlans(pp);
+            }
+            else if(pp.getPolicy_type().equalsIgnoreCase(halfYearly))
+            {
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*6);
+                return pps.savePolicyPlans(pp);
+            }
+            else
+            {
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*12);
+                return pps.savePolicyPlans(pp);
+            }
+        }
+        //Self
+        else if(pp.getPolicy_type().equalsIgnoreCase(quarterly))
+        {
+
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*4);
+            return pps.savePolicyPlans(pp);
+        }
+        else if(pp.getPolicy_type().equalsIgnoreCase(halfYearly))
+        {
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*6);
+            return pps.savePolicyPlans(pp);
+        }
+        else if(pp.getPolicy_type().equalsIgnoreCase(yearly)) 
+        {
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*12);
+            return pps.savePolicyPlans(pp);
+        }
+        else
+        {
+            return pps.savePolicyPlans(pp);    
+        }    
+    }
 	@GetMapping("/getAllPolicyPlans")
 	
 	public List<Policy> getAllPolicyPlans()
@@ -57,6 +93,7 @@ public class PolicyPlansController {
 		}
 		return pps.getAllPolicies();
 	}
+	
 	@GetMapping("/findById/{id}")
 	public List<Policy> findByPolicyId(@PathVariable long id)
 	{
@@ -69,11 +106,12 @@ public class PolicyPlansController {
 	
 	
 	
-	@GetMapping("/findByPolicyFor/{policy_for}")
+	@GetMapping("/findByPolicyF	or/{policy_for}")
 	public List<Policy> findByPolicyFor(@PathVariable String policy_for)
 	{
 		return pps.findByPolicyFor(policy_for);
 	}
+	
 	@GetMapping("/findByPoliceName/{policy_name}")
 	public List<Policy> findByPolicyName(@PathVariable String policy_name) throws Exception
 	{	
@@ -83,6 +121,7 @@ public class PolicyPlansController {
 		}
 		return pps.findByPolicyName(policy_name);
 	}
+	
 	@PutMapping("/updatePolicy")
 	public void updatePolicy(@RequestBody Policy policy)
 	{
@@ -103,10 +142,6 @@ public class PolicyPlansController {
 	{
 		pps.deletePolicy(id);
 	}
-	@GetMapping("/nameValue")
-	public String nameValue()
-	{
-		return "Username "+ev.getProperty("myname.name");
-	}
+
 	
 }

@@ -1,10 +1,10 @@
-package com.healthInsurance.healthInsurance;
+package com.uhg.userpolicies;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HealthInsuranceApplicationTests {
+class UserpoliciesApplicationTests {
 
 	@Test
 	void contextLoads() {
