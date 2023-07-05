@@ -126,7 +126,7 @@ const Navbar = () => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>View Profile</MenuItem>
+              <MenuItem onClick={() => {navigate("/profile");}}>View Profile</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </>

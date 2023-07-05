@@ -10,6 +10,7 @@ import HomePage from "./Component/HomePage";
 import Footer from "./Component/Footer";
 import InsurancePolicyPage from "./Component/InsurancePolicyPage";
 import AdminAddPolicy from "./Component/AdminAddPolicy";
+import ProfilePage from "./Component/ProfilePage";
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
           <Route path="/registration" element={<UserRegistration />} />
           <Route path="/policies" element={<InsurancePolicyPage />} />
           <Route path="/addpolicy" element={<AdminAddPolicy/>}/>
+          <Route path="/profile" element={<ProfilePage/>}/>
         </Routes>
         <Footer />
       </Router>
