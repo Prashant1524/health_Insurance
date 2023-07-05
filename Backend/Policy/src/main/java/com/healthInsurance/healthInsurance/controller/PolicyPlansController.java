@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.core.env.Environment;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,8 @@ import com.healthInsurance.healthInsurance.service.PolicyPlansService;
 public class PolicyPlansController {
 	@Autowired
 	private PolicyPlansService pps;
-	
+	@Autowired 
+	private Environment ev;
 	@PostMapping("/addPolicy")
 	public String savePolicyPlans(@RequestBody Policy pp) 
 	{
@@ -34,8 +35,17 @@ public class PolicyPlansController {
 		{
 			return "Policy already exist";
 		}
-		return pps.savePolicyPlans(pp);
-		
+		System.out.println("Policy for "+pp.getPolicy_for());
+		String fpolicy="Family";
+		if(pp.getPolicy_for().equals(fpolicy))
+		{
+			pp.setPolicy_start_amount(799);
+			return pps.savePolicyPlans(pp);
+		}
+		else
+		{
+			return pps.savePolicyPlans(pp);	
+		}	
 	} 
 	@GetMapping("/getAllPolicyPlans")
 	
@@ -59,7 +69,7 @@ public class PolicyPlansController {
 	
 	
 	
-	@GetMapping("/findByPolicyF	or/{policy_for}")
+	@GetMapping("/findByPolicyFor/{policy_for}")
 	public List<Policy> findByPolicyFor(@PathVariable String policy_for)
 	{
 		return pps.findByPolicyFor(policy_for);
@@ -93,6 +103,10 @@ public class PolicyPlansController {
 	{
 		pps.deletePolicy(id);
 	}
-
+	@GetMapping("/nameValue")
+	public String nameValue()
+	{
+		return "Username "+ev.getProperty("myname.name");
+	}
 	
 }

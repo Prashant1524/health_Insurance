@@ -1,0 +1,30 @@
+.alignContent{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-right: 33%;
+}
+.formValue{
+    width: 400px;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-bottom: 2%;
+}
+.inputValue{
+    padding: 1.5%;
+    width: 70%;
+}
+.inputValue1{
+    padding: 1.5%;
+    width: 70%;
+    margin: inherit;
+}
+.buttonValue{
+    margin-top: 5%;
+    padding: 1.5%;
+    width: 30%;
+    background-color: #068DA9;
+}
