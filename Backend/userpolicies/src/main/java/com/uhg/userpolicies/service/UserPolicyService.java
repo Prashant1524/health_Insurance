@@ -9,6 +9,8 @@ public interface UserPolicyService {
 	List<UserPolicy> findById(long id);
 
 	List<UserPolicy> findByUserEmail(String user_email);
+
+	String saveUser(UserPolicy userpolicy);
 	
 
 }

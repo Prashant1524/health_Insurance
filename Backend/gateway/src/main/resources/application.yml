@@ -67,5 +67,11 @@ spring:
             - Path=/announcements/admin/addAnn
           filters:
             - AuthenticationFilter
+        - id: userpolicy-service
+          uri: lb://USERPOLICY-SERVICE
+          predicates:
+            - Path=/userpolicies/**
+          filters:
+            - AuthenticationFilter
         
         

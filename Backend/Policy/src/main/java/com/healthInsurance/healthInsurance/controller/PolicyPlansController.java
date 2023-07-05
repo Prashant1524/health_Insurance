@@ -1,6 +1,7 @@
 package com.healthInsurance.healthInsurance.controller;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,23 +40,30 @@ public class PolicyPlansController {
         String quarterly="Quarterly";
         String halfYearly="Half Yearly";
         String yearly="Yearly";
+        LocalDate sd=LocalDate.now();
         //Family
         if(pp.getPolicy_for().equals(fpolicy))
         {
             if(pp.getPolicy_type().equalsIgnoreCase(quarterly))
             {
+            	pp.setStartDate(sd);
+                pp.setEndDate(sd.plusDays(92));
                 pp.setPolicy_start_amount(799);
                 pp.setPolicy_total_amount(pp.getPolicy_start_amount()*4);
                 return pps.savePolicyPlans(pp);
             }
             else if(pp.getPolicy_type().equalsIgnoreCase(halfYearly))
             {
+            	pp.setStartDate(sd);
+                pp.setEndDate(sd.plusDays(182));
                 pp.setPolicy_start_amount(799);
                 pp.setPolicy_total_amount(pp.getPolicy_start_amount()*6);
                 return pps.savePolicyPlans(pp);
             }
             else
             {
+            	pp.setStartDate(sd);
+                pp.setEndDate(sd.plusDays(365));
                 pp.setPolicy_start_amount(799);
                 pp.setPolicy_total_amount(pp.getPolicy_start_amount()*12);
                 return pps.savePolicyPlans(pp);
@@ -64,17 +72,22 @@ public class PolicyPlansController {
         //Self
         else if(pp.getPolicy_type().equalsIgnoreCase(quarterly))
         {
-
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(92));
             pp.setPolicy_total_amount(pp.getPolicy_start_amount()*4);
             return pps.savePolicyPlans(pp);
         }
         else if(pp.getPolicy_type().equalsIgnoreCase(halfYearly))
         {
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(182));
             pp.setPolicy_total_amount(pp.getPolicy_start_amount()*6);
             return pps.savePolicyPlans(pp);
         }
         else if(pp.getPolicy_type().equalsIgnoreCase(yearly)) 
         {
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(365));
             pp.setPolicy_total_amount(pp.getPolicy_start_amount()*12);
             return pps.savePolicyPlans(pp);
         }
