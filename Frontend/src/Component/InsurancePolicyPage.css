@@ -1,0 +1,8 @@
+@media print {
+    .control-group {
+      display: none;
+    }
+    .control-group2 {
+        display: none;
+      }
+}

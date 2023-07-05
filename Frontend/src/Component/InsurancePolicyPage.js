@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./InsurancePolicyPage.css";
 import {
   Grid,
   Typography,
@@ -134,6 +135,9 @@ const InsurancePolicyPage = () => {
     setSelectedPaymentOption(event.target.value);
     setPaymentStep(2);
   };
+  const handlePrintClick = () => {
+    window.print(); // Trigger the print dialog for the browser
+  };
 
   const handlePaymentSubmit = () => {
     // Perform payment processing logic here
@@ -166,15 +170,7 @@ const InsurancePolicyPage = () => {
               <Typography variant="h6">Good for:</Typography>
               <Typography>{selectedPolicy.goodFor}</Typography>
 
-              <Button style={{marginRight:20 , marginTop:10}} variant="contained" onClick={handleBackClick}>
-                Back
-              </Button>
-              <Button style={{marginLeft:20,marginRight:20, marginTop:10}} variant="contained" onClick={handleBackClick}>
-                Download
-              </Button>
-              <Button style={{marginLeft:20, marginTop:10}} variant="contained" onClick={handlePurchaseClick}>
-                Purchase
-              </Button>
+              
               </Grid>
               <Grid item xs={6} display="flex" justifyContent={"center"} alignItems={"center"}>
                 <CardMedia
@@ -184,12 +180,24 @@ const InsurancePolicyPage = () => {
                 />
               </Grid>
             </Grid>
-            <Grid item xs={12} >
-            <Testimonials/>
-        </Grid>
+        
             </CardContent>
           </Card>
         </Grid>
+        <Grid item xs={12} style={{marginLeft:15}} className="control-group">
+            <Button style={{ marginRight:20}} variant="contained" onClick={handleBackClick}>
+                Back
+              </Button>
+              <Button style={{ marginLeft:20,marginRight:20}} variant="contained" onClick={handlePrintClick}>
+                Download
+              </Button>
+              <Button style={{ marginLeft:20}} variant="contained" onClick={handlePurchaseClick}>
+                Purchase
+              </Button>
+            </Grid>
+            <Grid item xs={12} style={{ marginLeft:15}} className="control-group2">
+            <Testimonials/>
+          </Grid>
         <Modal open={isPaymentModalOpen} onClose={handleCloseModal}
         style={{
             display:'flex',
