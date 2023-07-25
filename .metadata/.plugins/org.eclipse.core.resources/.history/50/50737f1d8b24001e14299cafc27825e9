@@ -1,0 +1,5 @@
+package com.uhg.userpolicies.repository;
+
+public interface HospitalRepo {
+
+}

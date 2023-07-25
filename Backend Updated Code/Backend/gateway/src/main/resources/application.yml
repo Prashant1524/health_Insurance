@@ -1,0 +1,107 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/users/**
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/addPolicy
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/deletePolicy/{id}
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/findByPolicyF or/{policy_for}
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/updatePolicy
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/findById/{id}
+          filters:
+            - AuthenticationFilter
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/getAllPolicyPlans
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/getallhospitals
+        - id: policy-service
+          uri: lb://POLICY-SERVICE
+          predicates:
+            - Path=/policy/hospital
+          filters:
+            - AuthenticationFilter
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENT-SERVICE
+          predicates:
+            - Path=/announcements/getallannou
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENT-SERVICE
+          predicates:
+            - Path=/announcements/fetchAnn
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENT-SERVICE
+          predicates:
+            - Path=/position/addPosition
+          filters:
+            - AuthenticationFilter
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENT-SERVICE
+          predicates:
+            - Path=/position/getAllPosition
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENT-SERVICE
+          predicates:
+            - Path=/position/updatePosition
+          filters:
+            - AuthenticationFilter
+        - id: announcement-service
+          uri: lb://ANNOUNCEMENT-SERVICE
+          predicates:
+            - Path=/announcements/admin/addAnn
+          filters:
+            - AuthenticationFilter
+        - id: userpolicy-service
+          uri: lb://USERPOLICY-SERVICE
+          predicates:
+            - Path=/userpolicies/**
+          filters:
+            - AuthenticationFilter
+        - id: testimonial-service
+          uri: lb://TESTIMONIAL-SERVICE
+          predicates:
+            - Path=/test/**
+        
+       

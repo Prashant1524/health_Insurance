@@ -1,0 +1,147 @@
+package com.uhg.userpolicies.controller;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.uhg.userpolicies.entity.Hospital;
+//import com.healthInsurance.healthInsurance.model.Policy;
+import com.uhg.userpolicies.entity.UserPolicy;
+import com.uhg.userpolicies.repository.HospitalRepo;
+import com.uhg.userpolicies.scheduler.Scheduler;
+import com.uhg.userpolicies.service.EmailService;
+import com.uhg.userpolicies.service.UserPolicyService;
+import com.uhg.userpolicies.userpolicyexception.UserPolicyException;
+
+@RestController
+@RequestMapping("/userpolicies")
+public class UserPolicyController {
+	
+	@Autowired 
+	private Environment ev;
+	
+
+	
+	
+	@Autowired
+	private UserPolicyService ups;
+	
+	@Autowired
+    EmailService emailService;
+	
+	@Autowired
+	private Scheduler scheduler;
+	
+	
+	@PostMapping("/add")
+	public String saveUser(@RequestBody UserPolicy pp) {
+        String fpolicy="Family";
+        String quarterly="Quarterly";
+        String halfYearly="Half Yearly";
+        String yearly="Yearly";
+        LocalDateTime sd=LocalDateTime.now();
+        //Family
+        if(pp.getPolicy_for().equals(fpolicy))
+        {
+            if(pp.getPolicy_type().equalsIgnoreCase(quarterly))
+            {
+            	pp.setStartDate(sd);
+//                pp.setEndDate(sd.plusDays(92));
+                pp.setEndDate(sd.plusMinutes(1));
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*4);
+                return ups.saveUser(pp);
+            }
+            else if(pp.getPolicy_type().equalsIgnoreCase(halfYearly))
+            {
+            	pp.setStartDate(sd);
+                pp.setEndDate(sd.plusDays(182));
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*6);
+                return ups.saveUser(pp);
+            }
+            else
+            {
+            	pp.setStartDate(sd);
+                pp.setEndDate(sd.plusDays(365));
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*12);
+                return ups.saveUser(pp);
+            }
+        }
+        //Self
+        else if(pp.getPolicy_type().equalsIgnoreCase(quarterly))
+        {
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(92));
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*4);
+            return ups.saveUser(pp);
+        }
+        else if(pp.getPolicy_type().equalsIgnoreCase(halfYearly))
+        {
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(182));
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*6);
+            return ups.saveUser(pp);
+        }
+        else if(pp.getPolicy_type().equalsIgnoreCase(yearly)) 
+        {
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(365));
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*12);
+            return ups.saveUser(pp);
+        }
+        else
+        {
+            return ups.saveUser(pp);    
+        }    
+	
+		
+		
+	}
+	
+
+	@GetMapping("/findByTestimonialId/{id}")
+	public List<UserPolicy> findById(@PathVariable long id)
+	{
+		if(ups.findById(id).isEmpty())
+		{
+			throw new UserPolicyException("No such userid exists by this Id");
+		}
+		
+		return ups.findById(id);
+	}
+	
+	@GetMapping("/findByEmail/{user_email}")
+	public List <UserPolicy> findByUserEmail(@PathVariable String user_email){
+		if(ups.findByUserEmail(user_email).isEmpty()) {
+			
+			throw new UserPolicyException("no such userfirstname exist");
+		}
+		return ups.findByUserEmail(user_email);
+		
+	}
+	
+	
+	
+	@Scheduled(cron = "* * * * * *")
+	@GetMapping("/reminder")
+	public void sendReminder(){
+		scheduler.scheduleEmail();
+	}
+	
+
+	
+
+	
+	
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
+    <fullyQualifiedTypeName name="com.uhg.userpolicies.repository.HospitalRepo"/>
+    <fullyQualifiedTypeName name="com.uhg.userpolicies.entity.Hospital"/>
+    <fullyQualifiedTypeName name="com.healthInsurance.healthInsurance.repo.HospitalRepo"/>
+    <fullyQualifiedTypeName name="com.healthInsurance.healthInsurance.model.Hospital"/>
+</qualifiedTypeNameHistroy>

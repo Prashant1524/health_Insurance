@@ -1,0 +1,59 @@
+.split {
+    height: 68%;
+    width: 54%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    margin-top: 6%;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-54%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 370px;
+    border-radius: 50%;
+  }
+  .inputcontactus{
+    padding: 1%;
+    width: 40%;
+    margin-bottom: 1%;
+  }
+  /* .inputcontactus1{
+    width: 150%;
+    padding: 3%;
+    margin-top: 4%;
+  } */
+  .h2contactus{
+    color: #068DA9;
+  }
+  .formcontactus{
+    text-align: center;
+    margin-top: 12%;
+  }
+  .formbutton{
+    background-color: #62c6dafe;
+    padding: 1.5%;
+    width: 20%;
+  }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sending Email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- use the font -->
+    <style>
+    	footer {
+		  text-align: center;
+		  padding: 5px;
+		  background-color: rgb(2, 149, 192);
+		  color: white;
+		}
+        @media screen and (max-width: 768px) {
+            table {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+        h1{
+        	font-size:40px;
+        	font-family:Cursive;
+        	color:white;
+        }
+    </style>
+</head>
+<body>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0">
+    <thead>
+    <tr >
+        <th style="height: 10px; background-color: rgb(2, 149, 192)"><h1><i>Health Insurance</i></h1></th>
+    </tr>
+    <tr>
+        <th class="gradientBG" style="height: 5px; background-color: rgb(2, 149, 192)">&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+        <td style="padding: 30px 60px; font-size: 14px;">
+            <p>Dear <b><i><span th:text="${Name}"></span></i></b><p>
+            <p><b><span> Welcome to our Insurance Website. </span></b></p>
+            <p><b><span>You have successfully registered to the Health Insurance Website. Congratulations! </span></b></p>
+            <p><b><i>Here is the information:</i></b></p>
+            <p><b><i>Username:</i></b> <span th:text="${Name}"></span></p>
+            <p><b><i>Email:</i></b> <span th:text="${email}"></span></p>
+            <p><b><i>Date:</i></b> <span th:text="${date}"></span></p>
+            <p>Best Regards,</p>
+            <p>Team Insurance</p>
+            <p><b>[THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL]</b></p>
+            
+            
+        </td>
+    </tbody>
+    <footer>
+    		<small>
+      			Copyright © 2023 Health Insurance. All Rights Reserved.
+    		</small>
+  	</footer>
+</table>
+</body>
+</html>
