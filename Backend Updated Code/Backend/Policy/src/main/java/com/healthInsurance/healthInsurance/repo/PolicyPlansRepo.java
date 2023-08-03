@@ -17,5 +17,8 @@ public interface PolicyPlansRepo extends JpaRepository<Policy,Long>{
 	@Query(value="Select * from Policy where policy_name=?1",nativeQuery=true)
 	public List<Policy> findByPolicyName(String policy_name);
 	
+	@Query(value="Select * from Policy where policy_type=?1",nativeQuery=true)
+    public List<Policy> findByPolicyType(String policy_type);
+	
 
 }

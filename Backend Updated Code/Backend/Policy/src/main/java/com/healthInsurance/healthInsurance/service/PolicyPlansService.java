@@ -13,4 +13,5 @@ public interface PolicyPlansService {
 	public List<Policy> findByPolicyName(String policy_name);
 	public void updatePolicy(Policy policy,long id);
 	public void deletePolicy(long id);
+	public List<Policy> findByPolicyType(String policy_type);
 }

@@ -14,7 +14,16 @@ public class Hospital {
 	private String name;
 	
 	private String city;
+	private String state;
 	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	private String address;
 	
 	private Long number;
@@ -56,13 +65,14 @@ public class Hospital {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Hospital(Long id, String name, String city, String address, Long number) {
+	public Hospital(Long id, String name, String city, String address, Long number, String state) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.city = city;
 		this.address = address;
 		this.number = number;
+		this.state = state;
 	}
 
 	public Long getNumber() {

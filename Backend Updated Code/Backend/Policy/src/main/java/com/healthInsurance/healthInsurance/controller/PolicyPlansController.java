@@ -1,6 +1,7 @@
 package com.healthInsurance.healthInsurance.controller;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +33,84 @@ public class PolicyPlansController {
 	@Autowired 
 	HospitalRepo hosrepo;
 	
+//	@PostMapping("/addPolicy")
+//	public String savePolicyPlans(@RequestBody Policy pp) 
+//	{
+//		List<Policy> policiesByName = pps.findByPolicyName(pp.getPolicy_name());
+//		if(policiesByName!=null && policiesByName.size()>0)
+//		{
+//			return "Policy already exist";
+//		}
+//		return pps.savePolicyPlans(pp);
+//		
+//	} 
 	@PostMapping("/addPolicy")
-	public String savePolicyPlans(@RequestBody Policy pp) 
-	{
-		List<Policy> policiesByName = pps.findByPolicyName(pp.getPolicy_name());
-		if(policiesByName!=null && policiesByName.size()>0)
-		{
-			return "Policy already exist";
-		}
-		return pps.savePolicyPlans(pp);
+	public String saveUser(@RequestBody Policy pp) {
+        String fpolicy="Family";
+        String quarterly="Quarterly";
+        String halfYearly="Half Yearly";
+        String yearly="Yearly";
+        LocalDateTime sd=LocalDateTime.now();
+        //Family
+        if(pp.getPolicy_for().equals(fpolicy))
+        {
+            if(pp.getPolicy_type().equalsIgnoreCase(quarterly))
+            {
+            	pp.setStartDate(sd);
+//                pp.setEndDate(sd.plusDays(92));
+                pp.setEndDate(sd.plusMinutes(1));
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*4);
+                return pps.savePolicyPlans(pp);
+            }
+            else if(pp.getPolicy_type().equalsIgnoreCase(halfYearly))
+            {
+            	pp.setStartDate(sd);
+                pp.setEndDate(sd.plusDays(182));
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*6);
+                return pps.savePolicyPlans(pp);
+            }
+            else
+            {
+            	pp.setStartDate(sd);
+                pp.setEndDate(sd.plusDays(365));
+                pp.setPolicy_start_amount(799);
+                pp.setPolicy_total_amount(pp.getPolicy_start_amount()*12);
+                return pps.savePolicyPlans(pp);
+            }
+        }
+        //Self
+        else if(pp.getPolicy_type().equalsIgnoreCase(quarterly))
+        {
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(92));
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*4);
+            return pps.savePolicyPlans(pp);
+        }
+        else if(pp.getPolicy_type().equalsIgnoreCase(halfYearly))
+        {
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(182));
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*6);
+            return pps.savePolicyPlans(pp);
+        }
+        else if(pp.getPolicy_type().equalsIgnoreCase(yearly)) 
+        {
+        	pp.setStartDate(sd);
+            pp.setEndDate(sd.plusDays(365));
+            pp.setPolicy_total_amount(pp.getPolicy_start_amount()*12);
+            return pps.savePolicyPlans(pp);
+        }
+        else
+        {
+        	return pps.savePolicyPlans(pp);   
+        }    
+	
 		
-	} 
+		
+	}
+	
 	@GetMapping("/getAllPolicyPlans")
 	
 	public List<Policy> getAllPolicyPlans()
@@ -65,7 +133,7 @@ public class PolicyPlansController {
 	
 	
 	
-	@GetMapping("/findByPolicyF	or/{policy_for}")
+	@GetMapping("/findByPolicyFor/{policy_for}")
 	public List<Policy> findByPolicyFor(@PathVariable String policy_for)
 	{
 		return pps.findByPolicyFor(policy_for);
@@ -113,5 +181,13 @@ public class PolicyPlansController {
 		return list;
 		
 	}
+	
+	@GetMapping("/getPolicyType/{policy_type}")
+    public List<Policy> findByPolicyType(@PathVariable String policy_type)
+    {
+        return pps.findByPolicyType(policy_type);
+    }
+
+ 
 	
 }

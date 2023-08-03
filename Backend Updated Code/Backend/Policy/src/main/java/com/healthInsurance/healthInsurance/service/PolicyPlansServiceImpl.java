@@ -16,16 +16,18 @@ public class PolicyPlansServiceImpl implements PolicyPlansService{
 	public String savePolicyPlans(Policy pp) 
 	{
 
-		Policy p=ppr.findById(pp.getPolicy_id()).orElse(null);
-		if(p == null)
-		{
-			ppr.save(pp);
-			return "Policy added";
-		}
-		else
-		{
-			return "Already exists";
-		}
+//		Policy p=ppr.findById(pp.getPolicy_id()).orElse(null);
+//		if(p == null)
+//		{
+//			ppr.save(pp);
+//			return "Policy added";
+//		}
+//		else
+//		{
+//			return "Already exists";
+//		}
+		ppr.save(pp);
+		return "Policy added";
 		
 	}
 
@@ -46,6 +48,11 @@ public class PolicyPlansServiceImpl implements PolicyPlansService{
 		return ppr.findByPolicyId(policy_id);
 	}
 
+	@Override
+    public List<Policy> findByPolicyType(String policy_type)
+    {
+        return ppr.findByPolicyType(policy_type);
+    }
 	@Override
 	public List<Policy> findByPolicyName(String policy_name) {
 	
